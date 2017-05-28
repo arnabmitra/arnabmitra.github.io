@@ -7,50 +7,42 @@ categories: jekyll update
 
 >Redis is an open source, BSD-licensed, key-value data store that also comes with a messaging system. The server is freely available at http://redis.io/download.
 
-If you use a Mac with homebrew
+###If you use a Mac with homebrew
 
 >brew install redis
-Once you unpack Redis, you can launch it with default settings.
-redis-server
-You should see a message like this:
-[35142] 01 May 14:36:28.939 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
-[35142] 01 May 14:36:28.940 * Max number of open files set to 10032
-                _._
-              _.-``__ ''-._
-        _.-``    `.  `_.  ''-._           Redis 2.6.12 (00000000/0) 64 bit
-    .-`` .-```.  ```\/    _.,_ ''-._
-  (    '      ,       .-`  | `,    )     Running in stand alone mode
-  |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379
-  |    `-._   `._    /     _.-'    |     PID: 35142
-    `-._    `-._  `-./  _.-'    _.-'
-  |`-._`-._    `-.__.-'    _.-'_.-'|
-  |    `-._`-._        _.-'_.-'    |           http://redis.io
-    `-._    `-._`-.__.-'_.-'    _.-'
-  |`-._`-._    `-.__.-'    _.-'_.-'|
-  |    `-._`-._        _.-'_.-'    |
-    `-._    `-._`-.__.-'_.-'    _.-'
-        `-._    `-.__.-'    _.-'
-            `-._        _.-'
-                `-.__.-'
 
-[35142] 01 May 14:36:28.941 # Server started, Redis version 2.6.12
-[35142] 01 May 14:36:28.941 * The server is now ready to accept connections on port 6379
 
-If you want to install it on CentOs or RHEL systems.
+### If you want to install it on CentOs or RHEL systems(Production like systems).
+
+<pre>
 wget http://download.redis.io/releases/redis-3.2.6.tar.gz
+
 yum install make gcc gcc-c++ kernel-devel
+
 sudo wget http://prdownloads.sourceforge.net/tcl/tcl8.6.0-src.tar.gz
+
 sudo tar xzvf tcl8.6.0-src.tar.gz
+
 cd tcl8.6.0/unix
+
 sudo ./configure
+
 sudo make
+
 sudo make install
+
 cd ~
+
 sudo tar xzvf redis-3.2.6.tar.gz
+
 sudo cp -p redis-3.2.6/utils/redis_init_script /etc/init.d/redis
+
 sudo mkdir /etc/redis
+
 sudo cp -p redis.conf /etc/redis/6379.conf
+
 sudo vi /etc/redis/6379.conf
+
 
 @@ -14,11 +14,11 @@
 
@@ -123,9 +115,6 @@ sudo vi /etc/redis/6379.conf
 
 If you want your redis server to accept connections from instances other than local host
 Do the following (**********Don't do this in PROD**************)
-
-################################## NETWORK #####################################
-
 
 
 # By default, if no "bind" configuration directive is specified, Redis listens
@@ -232,3 +221,4 @@ Now you can start and stop your redis service via
 service redis stop
 
 service redis start
+</pre>
