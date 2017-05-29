@@ -1,30 +1,50 @@
 ---
 layout: post
-title:  "Analytics using Redis bitmap."
+title:  "Analytics using Redis data structure:Bitmap."
 categories: "redis,nosql,analytics"
 date:   2017-05-27 20:52:29 -0700
 categories: jekyll update
 ---
 Chances are, if you have ever worked on a highly trafficked website, you may have a need
-for real time analytics.Whether it be counting the number of times all users have clicked a button
+for real time metrics.Whether it be counting the number of times all users have clicked a button
 or figuring out how many distinct actions an user has performed.
 
 The basis of my post today is not original but is based on this article from way back in time
-http://blog.getspool.com/2011/11/29/fast-easy-realtime-metrics-using-redis-bitmaps/
+[fast-easy-realtime-metrics-using-redis-bitmaps](http://blog.getspool.com/2011/11/29/fast-easy-realtime-metrics-using-redis-bitmaps/)
 
 ## Theoretical scenario
 
 Lets say you run an e-commerce website and you want to
+
 - See how many users have clicked a certain button or performed a certain action.
-Example actions, could be how many times has someone performed the search action on the site.
+Example actions, could be how many times has someone performed the
+internal search action(clicked the search button) on the site.
 How many times have customers clicked add to cart button in the last hour and such.
-- Track if a customer has performed a certain set of actions, for e.g if they clicked on the
+
+- Track if a customer has performed a certain set of actions,
+ for e.g if they clicked on the
 search button, gone to a certain page, gone to the home page etc.
--Track how many users have performed a particular action or a set of actions.
+- Track how many users have performed a particular action or a set of actions.
 
 
 Redis bitmaps are super simple way to track user events.
 
+Redis bitmaps are not a special datatype in REDIS but is a String datatype in redis which has its value set
+by the SETBIT [fSETBIT](https://redis.io/commands/setbit) operation.
+This value can be retrieved by the [GETBIT](https://redis.io/commands/getbit) operation.
+
+Examples
+```
+redis> SETBIT mykey 7 1
+(integer) 0
+redis> GETBIT mykey 0
+(integer) 0
+redis> GETBIT mykey 7
+(integer) 1
+redis> GETBIT mykey 100
+(integer) 0
+redis>
+```
 Bitmaps are a collection of bits 1 representing an action that has been
 taken by the customer and 0 representing no action, with the offset as
 the customer id
@@ -217,4 +237,52 @@ redis-cluster_1  | S: addb068819513b1e9601e48559a733d26d1ece29 127.0.0.1:7004
 redis-cluster_1  |    replicates 709b198594553bda7c65ab0f0f6b18a1953bb379
 redis-cluster_1  | S: 43f0d69cd483a00b2a9fe62e5f549f9beeba9665 127.0.0.1:7005
 redis-cluster_1  |    replicates ecf12deb2fb1eddb9f858a02d1a358121ffb5b37
+```
+
+
+Lets write a test, to see how all this ties in
+
+```
+  @Test public void setCustomerAction() {
+    for (int i = 10; i < 50; i++) {
+      customerService.setUserAction("user:clickProduct", i);
+    }
+    for (int i = 10; i < 25; i++) {
+      customerService.setUserAction("user:clickSearch", i);
+    }
+    customerService.setUserAction("user:clickProduct", 20000);
+
+  }
+
+  @Test public void getCustomerAction() {
+    for (int i = 10; i < 50; i++) {
+      boolean getUserAction = customerService.isUserAction("user:clickProduct", Long.valueOf(i));
+      assertThat(getUserAction).isEqualTo(true);
+    }
+    long numberOfUserActions = customerService.getNumberOfUserClicksAllAction("user:clickProduct", "user:clickSearch");
+    assertThat(numberOfUserActions).isEqualTo(15);
+    boolean getUserAction = customerService.isUserAction("user:clickProduct", 51110l);
+    assertThat(getUserAction).isEqualTo(false);
+  }
+```
+
+If you connect to a redis instance in the cluster using redis-cli
+```
+redis-cli -h 127.0.0.1 -p 7001
+```
+and watch the instance using the MONITOR command, you will see the following output.
+```
+1496100681.933094 [0 172.19.0.1:39616] "SETBIT" "\xac\xed\x00\x05t\x00\x11user:clickProduct" "10" "1"
+1496100681.936218 [0 172.19.0.1:39616] "SETBIT" "\xac\xed\x00\x05t\x00\x11user:clickProduct" "11" "1"
+1496100681.937057 [0 172.19.0.1:39616] "SETBIT" "\xac\xed\x00\x05t\x00\x11user:clickProduct" "12" "1"
+1496100681.937744 [0 172.19.0.1:39616] "SETBIT" "\xac\xed\x00\x05t\x00\x11user:clickProduct" "13" "1"
+1496100681.938371 [0 172.19.0.1:39616] "SETBIT" "\xac\xed\x00\x05t\x00\x11user:clickProduct" "14" "1"
+```
+
+```
+1496100682.008025 [0 172.19.0.1:39616] "GETBIT" "\xac\xed\x00\x05t\x00\x11user:clickProduct" "10"
+1496100682.057913 [0 172.19.0.1:39616] "GETBIT" "\xac\xed\x00\x05t\x00\x11user:clickProduct" "11"
+1496100682.060131 [0 172.19.0.1:39616] "GETBIT" "\xac\xed\x00\x05t\x00\x11user:clickProduct" "12"
+1496100682.061615 [0 172.19.0.1:39616] "GETBIT" "\xac\xed\x00\x05t\x00\x11user:clickProduct" "13"
+1496100682.062810 [0 172.19.0.1:39616] "GETBIT" "\xac\xed\x00\x05t\x00\x11user:clickProduct" "14"
 ```
