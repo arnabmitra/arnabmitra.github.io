@@ -7,7 +7,8 @@ categories: jekyll update
 
 >Redis is an open source, BSD-licensed, key-value data store that also comes with a messaging system. The server is freely available at http://redis.io/download.
 
-###If you use a Mac with homebrew
+###
+If you use a Mac with homebrew
 
 >brew install redis
 
