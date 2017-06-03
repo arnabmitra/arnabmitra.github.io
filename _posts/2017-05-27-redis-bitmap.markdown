@@ -52,17 +52,17 @@ the customer id
 To set the bit value for a customer using the very popular java client Jedis https://github.com/xetorthio/jedis
 use the code below.
 
-<pre>
+```
  private void setBit( final String key, final long offset, final boolean value ) {
         redisTemplate.execute((RedisCallback<Void>) connection -> {
           connection.setBit( ( ( RedisSerializer< String > )redisTemplate.getKeySerializer() ).serialize( key ), offset, value );
           return null;
         });
       }
- </pre>
+```
 
 To get a customer action i.e see if a customer has performed a given action, use the code below
-<pre>
+```
  private boolean getBit( final String key, final long offset ) {
     return redisTemplate.execute(
         new RedisCallback< Boolean >() {
@@ -73,7 +73,7 @@ To get a customer action i.e see if a customer has performed a given action, use
         }
     );
   }
-</pre>
+```
 
 To get an associated bit with every customer action
 ```
@@ -103,7 +103,7 @@ get the cardibality across each action and it super simple
       return initial.cardinality();
 ```
 The below code shows the full Redis repository code which implements the below methods
-<pre>
+```
  /**
    * Sets particular action for a give customer id.
    * @param userKey
@@ -133,9 +133,10 @@ The below code shows the full Redis repository code which implements the below m
    */
   long getNumberOfUserClicksPerAction(String... userKey);
 
-</pre>
+```
 
-```@Repository
+```
+@Repository
    public class RedisRepositoryImpl implements RedisRepository {
 
      private final RedisTemplate<String,Boolean> redisTemplate;
