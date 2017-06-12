@@ -32,7 +32,7 @@ I will use this github project to do this https://github.com/m30m/docker-graphit
 Once this is running, you may want to change the
 graphite port to be an UDP port
 
-![ports](../assets/ports.png)
+![ports](/assets/ports.png)
 
 
 ### Let's see some code
@@ -123,7 +123,7 @@ by spring-boot-actuator-starter.
 Grafana is a great tool to visualize these metrics being sent to graphite.
 Add a datasource for setting up this dashboard
 
-![setting up a datasource](../assets/datasource.png)
+![setting up a datasource](/assets/datasource.png)
 
 After that start creating you dashboard as below.
-![setting up a dashboard in grafana](../assets/grafana.png)
+![setting up a dashboard in grafana](/assets/grafana.png)
