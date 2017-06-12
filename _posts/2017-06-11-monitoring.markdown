@@ -123,7 +123,7 @@ by spring-boot-actuator-starter.
 Grafana is a great tool to visualize these metrics being sent to graphite.
 Add a datasource for setting up this dashboard
 
-![ports](../assets/datasource.png)
+![setting up a datasource](../assets/datasource.png)
 
 After that start creating you dashboard as below.
-![ports](../assets/grafana.png)
+![setting up a dashboard in grafana](../assets/grafana.png)
