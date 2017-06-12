@@ -30,7 +30,7 @@ search button, gone to a certain page, gone to the home page etc.
 Redis bitmaps are super simple way to track user events.
 
 Redis bitmaps are not a special datatype in REDIS but is a String datatype in redis which has its value set
-by the SETBIT [fSETBIT](https://redis.io/commands/setbit) operation.
+by the SETBIT [SETBIT](https://redis.io/commands/setbit) operation.
 This value can be retrieved by the [GETBIT](https://redis.io/commands/getbit) operation.
 
 Examples
