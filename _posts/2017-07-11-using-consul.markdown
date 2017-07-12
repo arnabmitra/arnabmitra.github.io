@@ -13,10 +13,10 @@ Spring boot application can register with Consul using spring-cloud-consul.(http
 You can set up consul by installing it or if you use docker you can set it up via the command
 ``` docker run -p 8500:8500 consul:0.8.5 ```
 
-If you set it up via docker you can goto
-http://localhost:8500/ui/#/dc1/services
+If you set it up via docker you can go to
+http://localhost:8500/ui/#/dc1/services and you should see
 
-and you should see
+
 ![consul](/assets/consul-web.png)
 
 Now we will set up two spring boot webservices
@@ -28,22 +28,23 @@ Now we will set up two spring boot webservices
 They both register with consul when we include the dependency
 
 ```
-	<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-consul-discovery</artifactId>
-	</dependency>
+<dependency>
+	<groupId>org.springframework.cloud</groupId>
+	<artifactId>spring-cloud-starter-consul-discovery</artifactId>
+</dependency>
 ```
 
 Consul needs some health checks to pass for these services to register successfully, so we include spring-boot-actuator to provide these health checks
 ```
-     <dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
-	 </dependency>
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
 ```
 
 
 After this you should see the services registered in Consul.
+
 ![consul-after-reg](/assets/consul-after-reg.png)
 
 AddingMake sure you add the annotation
