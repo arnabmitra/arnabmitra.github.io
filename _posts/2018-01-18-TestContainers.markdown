@@ -4,7 +4,6 @@ title:  "TestContainers - the best thing since sliced bread ;)"
 date:   2018-01-18 20:52:29 -0700
 categories: jekyll update
 ---
-# TestContainers - the best thing since sliced bread ;)
 
 From https://www.testcontainers.org/
 
