@@ -5,6 +5,8 @@ date:   2018-01-18 20:52:29 -0700
 categories: jekyll update
 ---
 
+This is my attempt to explore more about some function in the [kotlin standard library](https://kotlinlang.org/api/latest/jvm/stdlib/index.html)
+By no means is this very complete just some notes.
 
 +------------------+--------------------+--------------------+---------------------+------------------+
 | Name of Function | Extension Function |    Return value    |  Argument in block  | block definition |
