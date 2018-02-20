@@ -7,7 +7,7 @@ categories: jekyll update
 
 This is my attempt to explore more about some function in the [kotlin standard library](https://kotlinlang.org/api/latest/jvm/stdlib/index.html)
 By no means is this very complete just some notes.
-
+```
 +------------------+--------------------+--------------------+---------------------+------------------+
 | Name of Function | Extension Function |    Return value    |  Argument in block  | block definition |
 +------------------+--------------------+--------------------+---------------------+------------------+
@@ -17,7 +17,7 @@ By no means is this very complete just some notes.
 | run()            | yes                | R(from block body) | implicit this       | T.()->R          |
 | with()           | no                 | R(from block body) | implicit this       | T.()->R          |
 +------------------+--------------------+--------------------+---------------------+------------------+
-
+```
 ## let()
 let is a scoping function, it let's you define variables which are only needed only within the scope of the
 let function.
