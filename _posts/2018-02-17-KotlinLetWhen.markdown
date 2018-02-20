@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Kotlin function's let, run, apply, also, with "
+title:  "Notes on Kotlin standard library functions (let(),run(),apply(),also(),use(),wiht()) "
 date:   2018-01-18 20:52:29 -0700
 categories: jekyll update
 ---
