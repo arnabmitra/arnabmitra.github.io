@@ -81,7 +81,7 @@ fun main(args: Array<String>) {
 
 ```
 
-##run()
+## run()
 ```
 fun <T, R> T.run(block: T.() -> R): R
 ```
@@ -94,13 +94,13 @@ fun <T, R> T.run(block: T.() -> R): R
 
 ```
 
-####let() vs run()
+#### let() vs run()
 Comparison:
 
  - (T) -> R in let(), but defined as T.() -> R in run()
  - their return value is R from block function.
  
-##apply()
+## apply()
 
 ```
 fun <T> T.apply(block: T.() -> Unit): T
@@ -125,7 +125,7 @@ Another example of how it returns this is
 ```
 This will print tomorrows date but will still return(and in this case print) today's date.
 
-##also()
+## also()
 Returns this as seen in apply(), but the Argument in block is implied it
 ```
 var dogs = mutableListOf<Dog>()
@@ -139,7 +139,7 @@ var dogs = mutableListOf<Dog>()
         .also { dogs.add(it) }
 
 ```
-##with()
+## with()
 ```
 fun <T, R> with(receiver: T, block: T.() -> R): R
 ```
